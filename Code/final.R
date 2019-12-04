@@ -8,7 +8,7 @@ rm(list=ls(all=TRUE))
 library(tidyverse)
 library(dplyr)
 
-sorghum <- read_csv("Data/USDA Sorghum Data.csv")
+sorghum_data <- read_csv("Data/USDA Sorghum Data.csv")
 
 head(sorghum)
 
@@ -16,5 +16,9 @@ summary(sorghum)
 
 # removing columns with NA's
 
-sorghum %>%
-  select(c( Year, State, County, `County ANSI`, `Ag District`, `Data Item`, Domain, `Domain Category`, Value))
+sorghum_data %>%
+  select(c( Year, State, County, `County ANSI`, `Ag District`, `Data Item`, Value)) -> sorghum
+
+sorghum %>% 
+  filter(State == "NORTH CAROLINA") %>%
+  filter(Value != "(D)")-> nc_sorghum
